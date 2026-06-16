@@ -1,0 +1,136 @@
+\documentclass[a4paper]{tufte-handout}
+
+\title{The Parachute Book}
+\author{ Matt Gumbley}
+
+%\date % without \date command, current date is supplied
+
+%\geometry{showframe} % display margins for debugging page layout
+
+
+% The tufte-latex package is great for pdflatex, but TeXPad uses xelatex, which fouls up the header, and doesn't build unless the following section is added. The header doesn't use a smallcaps font, and I had to change the main text and math font to make it look a bit better...
+
+% Thanks to https://tex.stackexchange.com/questions/200722/xetex-seems-to-break-headers-in-tufte-handout
+\usepackage{fontspec}
+\usepackage{ifxetex}
+
+
+\ifxetex
+  \newcommand{\textls}[2][5]{%
+    \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
+  }
+  \renewcommand{\allcapsspacing}[1]{\textls[15]{#1}}
+  \renewcommand{\smallcapsspacing}[1]{\textls[10]{#1}}
+  \renewcommand{\allcaps}[1]{\textls[15]{\MakeTextUppercase{#1}}}
+  \renewcommand{\smallcaps}[1]{\smallcapsspacing{\scshape\MakeTextLowercase{#1}}}
+  \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
+\fi
+
+\setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{Palatino}
+
+% Get the small caps right. Too much fiddling going on when using xelatex and tufte-latex.
+% The title and author aren't as nice as with pdflatex, but at least it builds.
+\setmainfont{texgyrepagella}[
+ Path = /opt/local/share/texmf-texlive/fonts/opentype/public/tex-gyre/ ,
+ UprightFont = *-regular ,
+ BoldFont = *-bold ,
+ SmallCapsFeatures={Letters=SmallCaps},
+]
+
+\setsansfont[Renderer=Basic, Scale=0.90]{Helvetica}
+
+\usepackage{graphicx} % allow embedded images
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}} % set of paths to search for images
+\usepackage{amsmath}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+\usepackage{hyperref} % URLs
+\usepackage{xcolor}   % For coloured text
+\usepackage{soul}     % For highlighted text
+\fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+% Standardize command font styles and environments
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\begin{document}
+
+    \maketitle % this prints the handout title, author, and date
+
+    \begin{abstract}
+        \noindent
+        An open, simple and useful personal computing stack — built around the Transputer (in emulation). 
+	Parachute is a long-term project to build a small systems architecture
+        from the ground up: emulator, toolchain, OS kernel, and applications — designed
+        to run on cheap, widely available hardware, and small enough that a single
+        person can understand the whole system.
+    \end{abstract}
+
+    \newthought{Here is a new thought...}
+    \footnote{And here is a footnote}
+    ... the thought continues
+
+    Here's a list
+    \begin{itemize}
+        \setlength\itemsep{-0.5em}
+        \item first item
+        \item second item
+        \item third item
+    \end{itemize}
+
+    Some more text, just before a page break...
+
+	\pagebreak
+    And a new page! Perhaps for a longer introduction.
+
+    \pagebreak
+    \tableofcontents
+    \pagebreak
+
+\section{Overview}
+    \newthought{here's a thought again}, and the rest of this line.
+
+\subsection{Subsection One}
+
+    Some things...
+
+\subsection{Subsection Two}
+
+    Some more things....
+
+\pagebreak
+\section{Project Website}
+
+The website for the parachute software is located at
+\url{https://devzendo.github.io/parachute}. On the website, you'll find
+links to our \smallcaps{git} repository, mailing lists, bug tracker, and documentation.
+
+\pagebreak
+\appendix
+\section*{Appendices}
+\addcontentsline{toc}{section}{Appendices}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+\subsection{A subsection appendix}
+
+\pagebreak
+\bibliography{parachute-book}
+\bibliographystyle{plainnat}
+
+
+
+\end{document}
