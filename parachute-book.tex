@@ -30,14 +30,18 @@
 
 % Get the small caps right. Too much fiddling going on when using xelatex and tufte-latex.
 % The title and author aren't as nice as with pdflatex, but at least it builds.
+% Path = /usr/share/texmf/fonts/opentype/public/tex-gyre/ ,
 \setmainfont{texgyrepagella}[
- Path = /usr/share/texmf/fonts/opentype/public/tex-gyre/ ,
  UprightFont = *-regular ,
  BoldFont = *-bold ,
  SmallCapsFeatures={Letters=SmallCaps},
 ]
 
-\setsansfont[Renderer=Basic, Scale=0.90]{Helvetica}
+% \setsansfont[Renderer=Basic, Scale=0.90]{Helvetica}
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
 
 \usepackage{graphicx} % allow embedded images
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
@@ -91,6 +95,9 @@
         \item second item
         \item third item
     \end{itemize}
+
+    {\fontencoding{T1}\fontfamily{phv}\fontsize{12}{15}\selectfont  % helvetica font <<<<<<<<<<<<<<<<
+    here is some helvetica text}
 
     Some more text, just before a page break...
 
