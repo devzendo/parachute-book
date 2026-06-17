@@ -26,15 +26,24 @@
   \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
 \fi
 
-\setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{texgyrepagella-regular} %% The Palatino from the TeX Gyre Project
+\setmainfont[
+  Renderer=Basic,
+  Numbers=OldStyle,
+  Scale=1.0,
+  Extension=.otf,
+  UprightFont=*-regular,
+  ItalicFont=*-italic,
+  BoldFont=*-bold,
+  BoldItalicFont=*-bolditalic]{texgyrepagella} %% The Palatino from the TeX Gyre Project
 
 % Get the small caps right. Too much fiddling going on when using xelatex and tufte-latex.
 % The title and author aren't as nice as with pdflatex, but at least it builds.
 % Path = /usr/share/texmf/fonts/opentype/public/tex-gyre/ ,
-\setmainfont{texgyrepagella}[
- UprightFont = *-regular ,
- BoldFont = *-bold ,
- SmallCapsFeatures={Letters=SmallCaps},
+\setmainfont{texgyrepagella-regular.otf}[
+  BoldFont       = texgyrepagella-bold.otf,
+  ItalicFont     = texgyrepagella-italic.otf,
+  BoldItalicFont = texgyrepagella-bolditalic.otf,
+  SmallCapsFeatures={Letters=SmallCaps},
 ]
 
 % \setsansfont[Renderer=Basic, Scale=0.90]{Helvetica}
