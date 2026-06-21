@@ -94,7 +94,7 @@
                                         ./parachute-book.pdf
                                     </file>
                                     <type>pdf</type>
-                                    <classifier/>
+                                    <classifier>pdf</classifier>
                                 </artifact>
                             </artifacts>
                         </configuration>
