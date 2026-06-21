@@ -22,7 +22,7 @@
     <scm>
         <url>https://github.com/devzendo/parachute-book.git</url>
         <connection>scm:git:https://github.com/devzendo/parachute-book.git</connection>
-        <developerConnection>scm:git:git@github.com:devzendo/parachute-book.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/devzendo/parachute-book.git</developerConnection>
     </scm>
 
     <developers>
