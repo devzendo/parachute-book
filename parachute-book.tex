@@ -1,14 +1,14 @@
 \documentclass[a4paper]{tufte-handout}
 
 \title{The Parachute Book}
-\author{ Matt Gumbley}
+\author{ Matt Gumbley, DevZendo.org }
 
 %\date % without \date command, current date is supplied
 
 %\geometry{showframe} % display margins for debugging page layout
 
 
-% The tufte-latex package is great for pdflatex, but TeXPad uses xelatex, which fouls up the header, and doesn't build unless the following section is added. The header doesn't use a smallcaps font, and I had to change the main text and math font to make it look a bit better...
+% The tufte-latex package is great for pdflatex, but TeXPad uses xelatex, which fouls up the header, and doesn't build unless the following section is added. The header doesn't use a smallcaps font, and I had to change the main text and math font to make it look a bit better.
 
 % Thanks to https://tex.stackexchange.com/questions/200722/xetex-seems-to-break-headers-in-tufte-handout
 \usepackage{fontspec}
@@ -80,17 +80,24 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
     \maketitle % this prints the handout title, author, and date
 
     \begin{abstract}
         \noindent
-        An open, simple and useful personal computing stack — built around the Transputer (in emulation). 
+        An open, simple and useful personal computing stack — built around the Transputer (in emulation).  
+        
 	Parachute is a long-term project to build a small systems architecture
         from the ground up: emulator, toolchain, OS kernel, and applications — designed
         to run on cheap, widely available hardware, and small enough that a single
         person can understand the whole system.
+        
+        
+	This book is a tutorial introduction and complete reference to the whole of the Parachute system, its emulator, hardware, applications, languages and OS.
+	
     \end{abstract}
 
     \newthought{Here is a new thought...}
@@ -113,12 +120,25 @@
 	\pagebreak
     And a new page! Perhaps for a longer introduction.
 
+
+
+
     \pagebreak
     \tableofcontents
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% each chapter opens with a brief paragraph stating its scope and purpose, and closes with a summary and forward pointer.
+
+    
     \pagebreak
 
-\section{Overview}
+\part{Preface}
     \newthought{here's a thought again}, and the rest of this line.
+
+% who this is for, what you need, conventions, how chapters relate, how to get the source code
 
 \subsection{Subsection One}
 
@@ -128,12 +148,100 @@
 
     Some more things....
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 \pagebreak
+\part{Foundations}
+
+vision/motivation, what a Transputer is, the architecture, the ecosystem (IServer etc.)
+
+
+\section{Project Website}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagebreak
+\part{Getting Started}
+
+% In the tutorial part, resist the temptation to front-load explanation. The reader should do something that works in the first chapter before you explain why it works. Explanation belongs in Part I or in clearly marked 'under the hood' sections, not interspersed in tutorial steps. This is where many self-authored technical books drift.
+
 \section{Project Website}
 
 The website for the parachute software is located at
 \url{https://devzendo.github.io/parachute}. On the website, you'll find
-links to our \smallcaps{git} repository, mailing lists, bug tracker, and documentation.
+links to our \smallcaps{github} repository, mailing lists, bug tracker, and documentation. 
+
+Releases of parachute may be found in the \smallcaps{releases} area of the \smallcaps{github} repository: \url{https://github.com/devzendo/parachute/releases} .
+
+
+
+\section{Downloading}
+
+
+
+
+\section{Verifying downloads}
+
+
+
+
+\section{Installing}
+\subsection{Installing on Windows}
+\subsection{Installing on macOS}
+\subsection{Installing on Linux}
+\subsection{Installing on Raspberry Pi Pico}
+
+
+
+
+
+\pagebreak
+\section{Tutorial introduction}
+\subsection{Hello World, prebuilt}
+\subsection{Assembling Hello World}
+\subsection{Building Small-C Hello World}
+\subsection{eForth}
+\subsection{The Mandlebrot Set}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\pagebreak
+\part{Programming}
+
+% tutorials in escalating complexity, one concept per chapter, each self-contained but building on prior ones; multiple languages means likely a chapter per language introducing it before the complexity builds up
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\pagebreak
+\part{Reference}
+% one chapter per tool/language, dense, structured consistently (syntax, semantics, options, error conditions)
+
+\section{Software}
+\subsection{Emulator}
+\subsection{IServer}
+\subsection{eForth}
+
+\section{Languages}
+\subsection{Macro Assembler}
+\subsection{Small-C Compiler}
+\subsection{Small-C Assembler}
+\subsection{eForth}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \pagebreak
 \appendix
@@ -141,7 +249,19 @@ links to our \smallcaps{git} repository, mailing lists, bug tracker, and documen
 \addcontentsline{toc}{section}{Appendices}
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
-\subsection{A subsection appendix}
+% quick reference tables, platform-specific notes, bibliography
+
+
+\subsection{Emulator Compatibility}
+
+\subsection{IServer Compatibility}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \pagebreak
 \bibliography{parachute-book}
