@@ -1,6 +1,6 @@
-\documentclass[a4paper]{tufte-handout}
+\documentclass[a4paper]{tufte-book}
 
-\title{The Parachute Book}
+\title{The Parachute Book, Vol I: Bare Metal}
 \author{ Matt Gumbley, DevZendo.org }
 
 %\date % without \date command, current date is supplied
@@ -80,65 +80,94 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
+% Generates the index
+\usepackage{makeidx}
+\makeindex
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
+\frontmatter
+
     \maketitle % this prints the handout title, author, and date
 
-    \begin{abstract}
-        \noindent
-        An open, simple and useful personal computing stack — built around the Transputer (in emulation).  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{fullwidth}
+~\vfill
+\thispagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+Copyright \copyright\ \the\year\ \thanklessauthor
+
+% about DevZendo.org ?
+
+
+\par\smallcaps{https://devzendo.github.io/parachute}
+
+\par Licensed under the Apache License, Version 2.0 (the ``License''); you may not
+use this file except in compliance with the License. You may obtain a copy
+of the License at \url{http://www.apache.org/licenses/LICENSE-2.0}. Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an \smallcaps{``AS IS'' BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND}, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.\index{license}
+
+\par\textit{Parachute 0.0.2, June 2026}
+\end{fullwidth}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \pagebreak
+    \tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+~\vfill
+\begin{doublespace}
+\noindent\fontsize{18}{22}\selectfont\itshape
+\nohyphenation
+
+\noindent
+In memoriam\\
+\vfill
+Sir Charles Antony Richard Hoare,\\
+FRS, FREng.\\
+\vfill
+11 January 1934 - 5 March 2026
+
+
+\end{doublespace}
+\vfill
+\vfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% each chapter opens with a brief paragraph stating its scope and purpose, and closes with a summary and forward pointer.
+
+    
+\pagebreak
+\part{Preface}
+\section{About this book}
+    \newthought{Parachute is...} an open, simple and useful personal computing stack — built around the Inmos Transputer (in emulation).
         
 	Parachute is a long-term project to build a small systems architecture
         from the ground up: emulator, toolchain, OS kernel, and applications — designed
         to run on cheap, widely available hardware, and small enough that a single
         person can understand the whole system.
         
-        
-	This book is a tutorial introduction and complete reference to the whole of the Parachute system, its emulator, hardware, applications, languages and OS.
-	
-    \end{abstract}
-
-    \newthought{Here is a new thought...}
-    \footnote{And here is a footnote}
-    ... the thought continues
-
-    Here's a list
-    \begin{itemize}
-        \setlength\itemsep{-0.5em}
-        \item first item
-        \item second item
-        \item third item
-    \end{itemize}
-
-    {\fontencoding{T1}\fontfamily{phv}\fontsize{12}{15}\selectfont  % helvetica font <<<<<<<<<<<<<<<<
-    here is some helvetica text}
-
-    Some more text, just before a page break...
-
-	\pagebreak
-    And a new page! Perhaps for a longer introduction.
-
-
-
-
-    \pagebreak
-    \tableofcontents
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% each chapter opens with a brief paragraph stating its scope and purpose, and closes with a summary and forward pointer.
-
-    
-    \pagebreak
-
-\part{Preface}
-    \newthought{here's a thought again}, and the rest of this line.
+	This book is a tutorial introduction and complete reference to part of the Parachute system: its emulator, hardware, languages, and running small parallel applications on it.
 
 % who this is for, what you need, conventions, how chapters relate, how to get the source code
+% Who is reading a document?
+% What do they want to accomplish?
+% Why do they want to accomplish it?
+
 
 \subsection{Subsection One}
 
@@ -147,7 +176,8 @@
 \subsection{Subsection Two}
 
     Some more things....
-
+    
+\subsection{Typographic conventions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -156,7 +186,22 @@
 \pagebreak
 \part{Foundations}
 
-vision/motivation, what a Transputer is, the architecture, the ecosystem (IServer etc.)
+% vision/motivation, what a Transputer is, the architecture, the ecosystem (IServer etc.)
+
+
+Parachute is guided by the ideas of people who believed software could be lean, comprehensible, and purposeful:
+\begin{itemize}
+	\item The Inmos Transputer, occam, and C.A.R. Hoare's CSP — the technical foundation (with other languages)
+	\item Niklaus Wirth's Project Oberon and his essay "A Plea for Lean Software" — a philosophy of restraint
+	\item The Amiga OS — elegance and capability in a small footprint
+	\item Psion PDAs and the SIBO/EPOC operating systems — productive, focused, astonishingly efficient
+	\item The Palm Pilot — proof that constraints produce clarity
+\end{itemize}
+
+Think: the early Mac, the Amiga, early Windows — but parallel, distributed, and built on a CPU that was genuinely ahead of its time.
+	
+And remember the PDA? Pocket-sized. Days of battery life on AAs. Distraction-free and productive. The smartphone was not its natural successor. Touch screens are necessary, but not sufficient for productive work - proper keyboards are essential. 
+
 
 
 \section{Project Website}
@@ -260,13 +305,15 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% The back matter contains appendices, bibliographies, indices, glossaries, etc.
 
+\backmatter
 
 
 \pagebreak
 \bibliography{parachute-book}
 \bibliographystyle{plainnat}
 
-
+\printindex
 
 \end{document}
