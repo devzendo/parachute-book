@@ -1,6 +1,6 @@
 \documentclass[a4paper]{tufte-book}
 
-\title{The Parachute Book, Vol I: Bare Metal}
+\title{The Parachute Book\newline Vol I: Bare Metal}
 \author{ Matt Gumbley, DevZendo.org }
 
 %\date % without \date command, current date is supplied
@@ -90,7 +90,7 @@
 
 \frontmatter
 
-    \maketitle % this prints the handout title, author, and date
+\maketitle % this prints the handout title, author, and date
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -135,16 +135,14 @@ under the License.\index{license}
 
 \noindent
 In memoriam\\
-\vfill
+\vspace{5mm}
 Sir Charles Antony Richard Hoare,\\
 FRS, FREng.\\
-\vfill
+\vspace{5mm}
 11 January 1934 - 5 March 2026
 
-
 \end{doublespace}
-\vfill
-\vfill
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -154,37 +152,126 @@ FRS, FREng.\\
 \pagebreak
 \part{Preface}
 \section{About this book}
-    \newthought{Parachute is...} an open, simple and useful personal computing stack — built around the Inmos Transputer (in emulation).
+    \newthought{Parachute is...} an open, simple and useful personal computing stack — built around the Inmos Transputer (in emulation).\footnote{Hold on. I want to set some expectations here - although I've been working on this for many years, off and on, this system is currently still \textit{a beginning}.} \\
+\vspace{5mm}
+\vspace{5mm}
         
-	Parachute is a long-term project to build a small systems architecture
+	It is a long-term project to build a small systems architecture
         from the ground up: emulator, toolchain, OS kernel, and applications — designed
-        to run on cheap, widely available hardware, and small enough that a single
-        person can understand the whole system.
-        
-	This book is a tutorial introduction and complete reference to part of the Parachute system: its emulator, hardware, languages, and running small parallel applications on it.
+        to run on current operating systems, and cheap, widely available hardware.
+
+\vspace{5mm}
+    Small enough that a person can understand the whole system.
+\vspace{5mm}
+
+	This book is a tutorial introduction and complete reference to \textit{part} of the Parachute system: its emulator, hardware\footnote{Initially, the Raspberry Pi Pico, currently around £3.80 in the UK, July 2026.} and languages. The focus of this volume is on running single, small - but parallel - applications on it directly, with \textit{no operating system}.\footnote{Hence the 'Bare Metal' (or rather, silicon) of the title of this first volume.}
+	
+	In its heyday, the Transputer was used either as a network of many microcontrollers in an embedded system, or as a co-processor network for an existing mainstream computer. \footnote{The B008 PC ISA board for example.} Later developments created operating systems for pure Transputer hardware.\footnote{The Meiko Computing Surface, and the Helios operating system, for example.} 
+	
+	This volume focuses on the first two applications, using the Parachute emulator instead of actual Transputer hardware.\footnote{Which appears occasionally on auction sites, but is harder to work with, and is generally considered by this author to be made of \textit{Unobtanium}.}
+	
+	Volume two - not yet started - will cover the forthcoming microkernel OS of the Parachute system.
+
+\section{Who should read this book}
+
+Those who yearn for a return to simple, distraction-free devices, that won't become obsolete, due to them being buildable from open technology.
+
+Developers and tinkerers who remember when personal computing felt like a frontier — or who wish they'd been there.
+
+People who want to understand their tools - all the way down.
+
+Anyone who thinks the direction of travel in modern systems (more abstraction, more complexity, more magic, less freedom, no right-to-repair) isn't the only possible direction...
+
+Perhaps innovative ideas from the past were before their time, and had much to offer - and are worth re-visiting in a modern setting.
+
+Those who would like to help form a community building this: it's intended to be a community project as much as a technical one. \newthought{There's a lot to build. \textit{Come help}.}
+
+
+\section{How to read this book}
+The book can be read sequentially - each section builds on the previous one.
+
+The next part, Foundations on page \pageref{foundations}, describes the vision and motivation behind the project. 
+
+It then gives a high-level description of the Transputer processor, and how our emulator relates to this. There are many differences.\footnote{Appendix \ref{appendix:compatibility} on page \pageref{appendix:compatibility} details how accurately the emulator mirrors the behaviour of real Transputers}.
+
+When used as a co-processor to a host computer, the Transputer made use of host computer I/O facilities - access the filesystem, the real-time clock, the textual console and keyboard. This client/server aspect of Transputers is explained in depth, which leads into a glimpse forward to the device support aspect of the forthcoming OS.\\
+
+\vfill
+
+After gaining a solid understanding of the architecture provided by Parachute, the next part of the book, Getting Started on page \pageref{getting-started} covers downloading, verifying, and installing the software for the various supported platforms, and also flashing the emulator image onto Raspberry Pi Pico boards.
+
+Once installed, the Programming section of the book on page \pageref{tutorial-introduction} gives a variety of small programs, in several languages, that will show you more of the architecture, and how to work effectively with the 'bare metal' emulator.
+
+These examples grow in complexity, and move from single processes, to multiple co-operating processes, to multiple processors in networks.
+
+\vfill
+
+Finally the book ends with a complete reference on page \pageref{reference} to the various programs and languages available within the system.
+
+\vfill
+
+By the end of the book, you should be able to write small programs for this interesting modern 'take' on an architecture that was once poised to change the world.
+
+\newthought{The future was parallel. \textit{Explore it}.}
 
 % who this is for, what you need, conventions, how chapters relate, how to get the source code
 % Who is reading a document?
 % What do they want to accomplish?
 % Why do they want to accomplish it?
-
-
-\subsection{Subsection One}
-
-    Some things...
-
-\subsection{Subsection Two}
-
-    Some more things....
     
-\subsection{Typographic conventions}
+
+\subsection{Conventions used in this book}
+
+The following typographical conventions are used in this book:
+
+\textit{Italic} represents new terms.
+
+\verb|Constant width| is used for code fragments, filenames, text emitted by programs.
+
+\texttt{\textbf{Constant width bold}} is used for input items the user should type.
+ 
+
+\subsection{Using code examples}
+
+I appreciate, but do not require attribution. This usually takes the form "The Parachute Book, Vol I", Copyright 2026 by Matt Gumbley, DevZendo.org.
+
+
+\subsection{How to contact us}
+
+Email: \verb|matt.gumbley@devzendo.org| \footnote{I'll set up a \texttt{groups.io} mailing group in the near future.} \\
+\vfill
+Mastodon: \verb|@M0CUV@mastodon.radio| \footnote{For more information on the Mastodon decentralised, non-algorithmic social network, please see \texttt{https://joinmastodon.org}.} \\
+\vfill
+Web: \verb|https://devzendo.github.io/parachute| \\
+\vfill
+Source code: \verb|https://github.com/devzendo/parachute| \footnote{This is the top-level repo where issues should be created - there are several other sub-project repositories.}
+
+
+\subsection{Policy on contributions and use of Large Language Models ('AI')}
+I welcome contributions from humans via pull requests on all aspects of the system. \\
+\vspace{5mm}
+I use Claude.ai occasionally for \textit{small-scale} assistance with code, prose and advice, and as a more focused search/analysis tool. \textbf{All} its output is vetted thoroughly by me. I am \textit{highly alert} to its potential for hallucination and its propensity to confabulate and mislead. \\
+\vspace{5mm}
+I gratefully acknowledge the work of others that was stolen without consent in the creation of Large Language Models. I understand the environmental impact of this technology. \\
+\vspace{5mm}
+
+The largest use of Claude.ai in this project has been the translation of the Small-C compiler and assembler \footnote{Written by Óscar Toledo Gutiérrez} from Spanish to English, which has been tested thoroughly by me. \\
+\vspace{5mm}
+
+While I have experimented in other projects with \textit{vibe coding}, this project does \textbf{not} use it. I only use it for creating examples of technologies I need to get up to speed with rapidly - and these are vetted, and treated with suspicion. \textit{As they should be - LLMs are rightly 'Artificial' Intelligence.} Real intelligence is an asymptote that LLMs can never reach. \\
+\vspace{5mm}
+Should you wish to submit changes or pull requests to any of the Parachute projects, I \textit{strongly prefer} Test-Driven Development - i.e. where pragmatic, tests are \textit{required}. And actual TDD - not 'test-after'. \\
+\vspace{5mm}
+\textbf{I do not accept SLOP}.
+
+\vfill
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 \pagebreak
 \part{Foundations}
+\label{foundations}
 
 % vision/motivation, what a Transputer is, the architecture, the ecosystem (IServer etc.)
 
@@ -192,7 +279,7 @@ FRS, FREng.\\
 Parachute is guided by the ideas of people who believed software could be lean, comprehensible, and purposeful:
 \begin{itemize}
 	\item The Inmos Transputer, occam, and C.A.R. Hoare's CSP — the technical foundation (with other languages)
-	\item Niklaus Wirth's Project Oberon and his essay "A Plea for Lean Software" — a philosophy of restraint
+	\item Niklaus Wirth's Project Oberon and his essay 'A Plea for Lean Software' — a philosophy of restraint
 	\item The Amiga OS — elegance and capability in a small footprint
 	\item Psion PDAs and the SIBO/EPOC operating systems — productive, focused, astonishingly efficient
 	\item The Palm Pilot — proof that constraints produce clarity
@@ -212,7 +299,7 @@ And remember the PDA? Pocket-sized. Days of battery life on AAs. Distraction-fre
 
 \pagebreak
 \part{Getting Started}
-
+\label{getting-started}
 % In the tutorial part, resist the temptation to front-load explanation. The reader should do something that works in the first chapter before you explain why it works. Explanation belongs in Part I or in clearly marked 'under the hood' sections, not interspersed in tutorial steps. This is where many self-authored technical books drift.
 
 \section{Project Website}
@@ -244,9 +331,17 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \pagebreak
+\part{Programming}
+
+% tutorials in escalating complexity, one concept per chapter, each self-contained but building on prior ones; multiple languages means likely a chapter per language introducing it before the complexity builds up
+
 \section{Tutorial introduction}
+\label{tutorial-introduction}
 \subsection{Hello World, prebuilt}
 \subsection{Assembling Hello World}
 \subsection{Building Small-C Hello World}
@@ -259,9 +354,6 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 
 \pagebreak
-\part{Programming}
-
-% tutorials in escalating complexity, one concept per chapter, each self-contained but building on prior ones; multiple languages means likely a chapter per language introducing it before the complexity builds up
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -269,6 +361,7 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 \pagebreak
 \part{Reference}
+\label{reference}
 % one chapter per tool/language, dense, structured consistently (syntax, semantics, options, error conditions)
 
 \section{Software}
@@ -298,6 +391,7 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 
 \subsection{Emulator Compatibility}
+\label{appendix:compatibility}
 
 \subsection{IServer Compatibility}
 
