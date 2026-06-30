@@ -117,6 +117,12 @@ WARRANTIES OR CONDITIONS OF ANY KIND}, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.\index{license}
 
+\vspace{5mm}
+
+'Transputer' and 'occam' were trademarks of Inmos Limited, later, SGS-Thompson Microelectronics, later, ST Microelectronics.
+
+\vspace{5mm}
+
 \par\textit{Parachute 0.0.2, June 2026}
 \end{fullwidth}
 
@@ -129,6 +135,7 @@ under the License.\index{license}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak
 ~\vfill
+\thispagestyle{empty}
 \begin{doublespace}
 \noindent\fontsize{18}{22}\selectfont\itshape
 \nohyphenation
@@ -164,25 +171,25 @@ FRS, FREng.\\
     Small enough that a person can understand the whole system.
 \vspace{5mm}
 
-	This book is a tutorial introduction and complete reference to \textit{part} of the Parachute system: its emulator, hardware\footnote{Initially, the Raspberry Pi Pico, currently around £3.80 in the UK, July 2026.} and languages. The focus of this volume is on running single, small - but parallel - applications on it directly, with \textit{no operating system}.\footnote{Hence the 'Bare Metal' (or rather, silicon) of the title of this first volume.}
+	This book is a tutorial introduction and complete reference to \textit{part} of the Parachute system: its emulator, hardware\footnote{Initially, the Raspberry Pi Pico, currently around £3.80 in the UK, July 2026.} and languages. The focus of this volume is on running single, small - but parallel - applications on it directly, with \textit{no operating system}.\footnote{Hence the 'Bare Metal' of the title of this first volume.}
 	
-	In its heyday, the Transputer was used either as a network of many microcontrollers in an embedded system, or as a co-processor network for an existing mainstream computer. \footnote{The B008 PC ISA board for example.} Later developments created operating systems for pure Transputer hardware.\footnote{The Meiko Computing Surface, and the Helios operating system, for example.} 
+	In its heyday, the Transputer was used either as a network of many microcontrollers in an embedded system, or as a co-processor network for an existing mainstream computer.\footnote{e.g. the B008 PC ISA board, and the Atari Transputer Workstation.} Later developments created operating systems for pure Transputer hardware.\footnote{e.g. the Helios operating system.} 
 	
-	This volume focuses on the first two applications, using the Parachute emulator instead of actual Transputer hardware.\footnote{Which appears occasionally on auction sites, but is harder to work with, and is generally considered by this author to be made of \textit{Unobtanium}.}
-	
+	This volume focuses on the first two applications, using the Parachute emulator instead of actual Transputer hardware.
+		
 	Volume two - not yet started - will cover the forthcoming microkernel OS of the Parachute system.
 
 \section{Who should read this book}
 
 Those who yearn for a return to simple, distraction-free devices, that won't become obsolete, due to them being buildable from open technology.
 
-Developers and tinkerers who remember when personal computing felt like a frontier — or who wish they'd been there.
+Developers and tinkerers who remember when personal computing felt like a frontier — or those who wish they'd been there.
+
+Those wanting to explore true parallel processing, with a language designed to work with it.
 
 People who want to understand their tools - all the way down.
 
-Anyone who thinks the direction of travel in modern systems (more abstraction, more complexity, more magic, less freedom, no right-to-repair) isn't the only possible direction...
-
-Perhaps innovative ideas from the past were before their time, and had much to offer - and are worth re-visiting in a modern setting.
+Anyone who thinks the direction of travel in modern systems (more abstraction, more complexity, more magic, less freedom, no right-to-repair) isn't the only possible direction. Perhaps innovative ideas from the past were \textit{before their time}, had much to offer, and are worth re-visiting in a modern setting?
 
 Those who would like to help form a community building this: it's intended to be a community project as much as a technical one. \newthought{There's a lot to build. \textit{Come help}.}
 
@@ -190,29 +197,46 @@ Those who would like to help form a community building this: it's intended to be
 \section{How to read this book}
 The book can be read sequentially - each section builds on the previous one.
 
-The next part, Foundations on page \pageref{foundations}, describes the vision and motivation behind the project. 
+The next part, \textit{Foundations} on page \pageref{foundations}, describes the vision and motivation behind the project. 
 
-It then gives a high-level description of the Transputer processor, and how our emulator relates to this. There are many differences.\footnote{Appendix \ref{appendix:compatibility} on page \pageref{appendix:compatibility} details how accurately the emulator mirrors the behaviour of real Transputers}.
+It then gives a high-level description of the Transputer processor, and how our emulator relates to this. There are many differences.\footnote{Appendix \ref{appendix:compatibility} on page \pageref{appendix:compatibility} details how accurately the emulator mirrors the behaviour of real Transputers.}
 
-When used as a co-processor to a host computer, the Transputer made use of host computer I/O facilities - access the filesystem, the real-time clock, the textual console and keyboard. This client/server aspect of Transputers is explained in depth, which leads into a glimpse forward to the device support aspect of the forthcoming OS.\\
+When used as a co-processor to a host computer, the Transputer made use of host computer I/O facilities to access the filesystem, the real-time clock, the textual console and keyboard. This client/server aspect of Transputers is explained in depth, which leads into a glimpse forward to the forthcoming OS's device driver system.
 
-\vfill
+\vspace{5mm}
 
-After gaining a solid understanding of the architecture provided by Parachute, the next part of the book, Getting Started on page \pageref{getting-started} covers downloading, verifying, and installing the software for the various supported platforms, and also flashing the emulator image onto Raspberry Pi Pico boards.
+After gaining a solid understanding of the architecture provided by Parachute, the next part of the book, \textit{Getting Started} on page \pageref{getting-started} covers downloading, verifying, and installing the software for the various supported platforms, and also flashing the emulator image onto Raspberry Pi Pico boards.
 
-Once installed, the Programming section of the book on page \pageref{tutorial-introduction} gives a variety of small programs, in several languages, that will show you more of the architecture, and how to work effectively with the 'bare metal' emulator.
+\vspace{5mm}
+
+Once installed, the \textit{Programming} section of the book on page \pageref{tutorial-introduction} gives a variety of small programs, in several languages, that will show you more of the architecture, and how to work effectively with the 'bare metal' emulator.
 
 These examples grow in complexity, and move from single processes, to multiple co-operating processes, to multiple processors in networks.
 
-\vfill
+\vspace{5mm}
 
 Finally the book ends with a complete reference on page \pageref{reference} to the various programs and languages available within the system.
 
-\vfill
+\vspace{5mm}
 
 By the end of the book, you should be able to write small programs for this interesting modern 'take' on an architecture that was once poised to change the world.
 
 \newthought{The future was parallel. \textit{Explore it}.}
+
+\section{What you need to work with this project}
+For the desktop version of Parachute, you need a computer with a supported operating system. It does not have to be state-of-the-art.
+
+For working with the embedded emulator, start with a Raspberry Pi Pico. Version one is OK.
+
+\vspace{5mm}
+
+You do not need real Transputer hardware. These appear occasionally on auction sites, but they can be harder to work with in today's systems, requiring subtle interfacing. They are generally considered by the author to be made of \textit{Unobtanium}.
+
+\vspace{5mm}
+
+It's not viable to build a new, popular system from hardware that's difficult to source, and that isn't currently manufactured.\footnote{The last chips that came from the Transputer architecture, the ST Microelectronics STi5100, ceased in 2016 as ST exited the set-top-box market. https://www.cpushack.com/2016/02/03/the-end-of-the-omega/ } Supply chain breakdowns during the COVID pandemic convinced me of the need to get Parachute running on highly available hardware. By making the emulator portable and cross-platform, I hope it can run on whatever system you have at hand. I chose the Raspberry Pi Pico specifically because it is very widely available in a variety of implementations from many vendors, and is inexpensive. Clusters of original Transputers might have been prohibitively expensive for hobbyists back in the day - but clusters of Pi Picos are not.
+
+% TODO work on this - treads on the install requirements section. First person?
 
 % who this is for, what you need, conventions, how chapters relate, how to get the source code
 % Who is reading a document?
@@ -239,30 +263,28 @@ I appreciate, but do not require attribution. This usually takes the form "The P
 \subsection{How to contact us}
 
 Email: \verb|matt.gumbley@devzendo.org| \footnote{I'll set up a \texttt{groups.io} mailing group in the near future.} \\
-\vfill
+\vspace{5mm}
 Mastodon: \verb|@M0CUV@mastodon.radio| \footnote{For more information on the Mastodon decentralised, non-algorithmic social network, please see \texttt{https://joinmastodon.org}.} \\
-\vfill
+\vspace{5mm}
 Web: \verb|https://devzendo.github.io/parachute| \\
-\vfill
+\vspace{5mm}
 Source code: \verb|https://github.com/devzendo/parachute| \footnote{This is the top-level repo where issues should be created - there are several other sub-project repositories.}
 
 
 \subsection{Policy on contributions and use of Large Language Models ('AI')}
 I welcome contributions from humans via pull requests on all aspects of the system. \\
 \vspace{5mm}
-I use Claude.ai occasionally for \textit{small-scale} assistance with code, prose and advice, and as a more focused search/analysis tool. \textbf{All} its output is vetted thoroughly by me. I am \textit{highly alert} to its potential for hallucination and its propensity to confabulate and mislead. \\
+I use Claude.ai occasionally for \textit{small-scale} assistance with code and prose; for advice, and as a more focused search/analysis tool. \textit{All} its output is vetted thoroughly by me: I am \textit{highly alert} to its potential for hallucination and its propensity to confabulate and mislead. \\
 \vspace{5mm}
 I gratefully acknowledge the work of others that was stolen without consent in the creation of Large Language Models. I understand the environmental impact of this technology. \\
 \vspace{5mm}
 
-The largest use of Claude.ai in this project has been the translation of the Small-C compiler and assembler \footnote{Written by Óscar Toledo Gutiérrez} from Spanish to English, which has been tested thoroughly by me. \\
+The largest use of Claude.ai in this project has been the translation of the text output, commentary and variables of the Small-C compiler and assembler\footnote{Written by Óscar Toledo Gutiérrez.} from Spanish to English. The translation makes sense to me, as someone familiar with compiler internals, and the binary output has been tested with both language versions, and is identical. \\
 \vspace{5mm}
 
-While I have experimented in other projects with \textit{vibe coding}, this project does \textbf{not} use it. I only use it for creating examples of technologies I need to get up to speed with rapidly - and these are vetted, and treated with suspicion. \textit{As they should be - LLMs are rightly 'Artificial' Intelligence.} Real intelligence is an asymptote that LLMs can never reach. \\
+Should you wish to submit changes or pull requests to any of the Parachute projects, I \textit{strongly prefer} Test-Driven Development, as distinct from writing tests after the code. Some parts (e.g. the IServer) were written after I adopted TDD, and are mostly test-driven; some parts (e.g. the Emulator core) predate this. When changing the older code, I prefer to get it under test first, then continue using TDD. (e.g. the asynchronous link subsystem.)\\
 \vspace{5mm}
-Should you wish to submit changes or pull requests to any of the Parachute projects, I \textit{strongly prefer} Test-Driven Development - i.e. where pragmatic, tests are \textit{required}. And actual TDD - not 'test-after'. \\
-\vspace{5mm}
-\textbf{I do not accept SLOP}.
+\textbf{I will not accept AI-generated slop in contributions}.
 
 \vfill
 
