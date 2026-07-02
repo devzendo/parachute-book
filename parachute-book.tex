@@ -234,7 +234,7 @@ You do not need real Transputer hardware. These appear occasionally on auction s
 
 \vspace{5mm}
 
-It's not viable to build a new, popular system from hardware that's difficult to source, and that isn't currently manufactured.\footnote{The last chips that came from the Transputer architecture, the ST Microelectronics STi5100, ceased in 2016 as ST exited the set-top-box market. https://www.cpushack.com/2016/02/03/the-end-of-the-omega/ } Supply chain breakdowns during the COVID pandemic convinced me of the need to get Parachute running on highly available hardware. By making the emulator portable and cross-platform, I hope it can run on whatever system you have at hand. I chose the Raspberry Pi Pico specifically because it is very widely available in a variety of implementations from many vendors, and is inexpensive. Clusters of original Transputers might have been prohibitively expensive for hobbyists back in the day - but clusters of Pi Picos are not.
+It's not viable to build a new, popular system from hardware that's difficult to source, and that isn't currently manufactured.\footnote{ The last chips that came from the Transputer architecture, the ST Microelectronics STi5100, ceased in 2016 as ST exited the set-top-box market. https://www.cpushack.com/2016/02/03/the-end-of-the-omega/ } Supply chain breakdowns during the COVID pandemic convinced me of the need to get Parachute running on highly available hardware. By making the emulator portable and cross-platform, I hope it can run on whatever system you have at hand. I chose the Raspberry Pi Pico specifically because it is widely available in a variety of implementations from many vendors, and is inexpensive. Clusters of original Transputers might have been prohibitively expensive for hobbyists back in the day - but clusters of Pi Picos are not.
 
 % TODO work on this - treads on the install requirements section. First person?
 
@@ -295,8 +295,8 @@ Should you wish to submit changes or pull requests to any of the Parachute proje
 \part{Foundations}
 \label{foundations}
 
+\section{Inspiration}
 % vision/motivation, what a Transputer is, the architecture, the ecosystem (IServer etc.)
-
 
 Parachute is guided by the ideas of people who believed software could be lean, comprehensible, and purposeful:
 \begin{itemize}
@@ -311,6 +311,17 @@ Think: the early Mac, the Amiga, early Windows — but parallel, distributed, an
 	
 And remember the PDA? Pocket-sized. Days of battery life on AAs. Distraction-free and productive. The smartphone was not its natural successor. Touch screens are necessary, but not sufficient for productive work - proper keyboards are essential. 
 
+
+\section{Transputer Processor Overview}
+
+There are several members in the Transputer family of microprocessors, but for simplicity this guide will describe only a few of them:
+\begin{itemize}
+	\item The T425
+	\item The T800
+	\item The T805
+\end{itemize}
+
+\section{IServer client/server system}
 
 
 \section{Project Website}
@@ -351,6 +362,7 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 \subsection{Installing on Raspberry Pi Pico}
 
 
+\section{Uninstalling}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -417,7 +429,38 @@ Releases of parachute may be found in the \smallcaps{releases} area of the \smal
 
 \subsection{IServer Compatibility}
 
+\subsection{Components of Parachute}
 
+There are several sub-components to Parachute, written over a long time period - in the languages I was studying and working with commercially at the time.
+
+\vspace{5mm}
+
+The emulator and IServer (transputer-emulator) is the oldest component, and is written in C++14, using CMake as its build system. It builds on the three 'desktop' OSes (macOS (Intel, Apple Silicon), Linux (Intel, ARM) and Windows 10 (Intel)). The earlier code here (the emulator) was not written with TDD; the later code (the IServer) was. The emulator and a link adapter also builds for Raspberry Pi Pico.
+
+eForth (transputer-eforth) is written in assembly language, specifically an open source implementation of a subset of Microsoft Macro Assembler 6 that understands the Transputer instruction set.
+
+This macro assembler (transputer-macro-assembler) is written in Scala 2, completely with TDD. It makes use of several other of my repositories (group-parent, group-parent-scala, cross-platform-launcher-plugin, common-code).
+
+The forthcoming C compiler (retro-c-compiler) is written in Rust, completely with TDD. This is in early development and is not yet part of the Parachute distribution.
+
+The Small-C compiler and assembler (transputer-k-r-c-compiler) is written in its own language, Small-C. It currently only builds on a 32-bit OS; I use Debian Bookworm to build it for Linux, then use this to build it again for Transputer.
+
+This book (parachute-book) is written using \LaTeX. It builds on macOS using MacPorts TeXLive, and in a Docker container that provides all the \LaTeX \space tools and packages (documentation-docker).
+
+\vspace{5mm}
+
+I use Apache Maven as an overall orchestrator of the build of all these projects - even though it is typically used for building JVM programs. No other build system understands the concept of a \textit{project lifecycle} in the way Maven does. I haven't found a replacement for its \textit{release} versioning/mechanism. 
+
+Each project contains Maven's \texttt{pom.xml} and other control files to produce the final project artefact.
+
+\subsection{Building Parachute}
+The full build of the system as a whole is done on a private Jenkins cluster of virtual machines, to support all the different operating system builds that Parachute is targeting. Of course, this makes it hard for other contributors to build the whole system.
+
+To alleviate this, I have built a Docker image that contains all the tools needed to build everything, together with some scripts that can clone all necessary repositories, and start the build of everything.
+
+This can be found at \verb|https://github.com/devzendo/parachute-docker|.
+
+\hl{INSTRUCTIONS ON HOW TO USE IT}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
