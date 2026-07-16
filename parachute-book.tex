@@ -272,18 +272,30 @@ Source code: \verb|https://github.com/devzendo/parachute| \footnote{This is the 
 
 
 \subsection{Policy on contributions and use of Large Language Models ('AI')}
-I welcome contributions from humans via pull requests on all aspects of the system. \\
-\vspace{5mm}
-I use Claude.ai occasionally for \textit{small-scale} assistance with code and prose; for advice, and as a more focused search/analysis tool. \textit{All} its output is vetted thoroughly by me: I am \textit{highly alert} to its potential for hallucination and its propensity to confabulate and mislead. \\
-\vspace{5mm}
-I gratefully acknowledge the work of others that was stolen without consent in the creation of Large Language Models. I understand the environmental impact of this technology. \\
+I welcome contributions from humans via pull requests on all aspects of the system. 
+
 \vspace{5mm}
 
-The largest use of Claude.ai in this project has been the translation of the text output, commentary and variables of the Small-C compiler and assembler\footnote{Written by Óscar Toledo Gutiérrez.} from Spanish to English. The translation makes sense to me, as someone familiar with compiler internals, and the binary output has been tested with both language versions, and is identical. \\
+I use Claude.ai occasionally for \textit{small-scale} assistance with code and prose; for advice, and as a more focused search/analysis tool. \textit{All} its output is vetted thoroughly by me: I am \textit{highly alert} to its potential for hallucination and its propensity to confabulate and mislead. 
+
 \vspace{5mm}
 
-Should you wish to submit changes or pull requests to any of the Parachute projects, I \textit{strongly prefer} Test-Driven Development, as distinct from writing tests after the code. Some parts (e.g. the IServer) were written after I adopted TDD, and are mostly test-driven; some parts (e.g. the Emulator core) predate this. When changing the older code, I prefer to get it under test first, then continue using TDD. (e.g. the asynchronous link subsystem.)\\
+I gratefully acknowledge the work of others that was stolen without consent in the creation of Large Language Models. I understand the environmental impact of this technology. 
+
 \vspace{5mm}
+
+The largest use of Claude.ai in this project has been the translation of the text output, commentary and variables of the Small-C compiler and assembler\footnote{Written by Óscar Toledo Gutiérrez.} from Spanish to English. The translation makes sense to me, as someone familiar with compiler internals, and the binary output has been tested with both language versions, and is identical. 
+
+\vspace{5mm}
+
+However, I am moving away from use of Large Language Models / GenAI. Although they can sometimes point you in a suitable direction, I believe they are more harmful than useful - they represent a \textit{cognitohazard}.\footnote{See https://www.psychologytoday.com/us/blog/the-algorithmic-mind/202603/adults-lose-skills-to-ai-children-never-build-them } 
+
+\vspace{5mm}
+
+Should you wish to submit changes or pull requests to any of the Parachute projects, I \textit{strongly prefer} Test-Driven Development, as distinct from writing tests after the code. Some parts (e.g. the IServer) were written after I adopted TDD, and are mostly test-driven; some parts (e.g. the Emulator core) predate this. When changing the older code, I prefer to get it under test first, then continue using TDD. (e.g. the asynchronous link subsystem.)
+
+\vspace{5mm}
+
 \textbf{I will not accept AI-generated slop in contributions}.
 
 \vfill
@@ -315,6 +327,8 @@ And remember the PDA? Pocket-sized. Days of battery life on AAs. Distraction-fre
 
 \section{Transputer Processor Overview}
 This section will introduce the Transputer and its features as presented via the Parachute emulator.
+
+\vspace{5mm}
  
 \marginnote{This is only the very briefest orientation to what makes a Transputer \textit{different} from other microprocessors. For a much more in-depth overview, I highly recommend the following book which is available from \texttt{https://transputer.net/iset/
 isbn-013929134-2/tthb.pdf}: \cite{tth}}
@@ -329,7 +343,7 @@ The Parachute emulator is somewhere in-between these two, closer to the T425. Fl
 
 % memory
 
-A Transputer is different from typical microprocessors in that it had a small amount of in-built memory.\footnote{The T800 had 4KB; Parachute on desktop has by default 4MB but this can be changed via command line flags; Parachute on the Pi Pico has around 200KB - and is currently only making use of a single core of the RP2040: this will change in a later release.} It also provided an external memory interface for connecting more RAM. Each Transputer in a system had access to its own memory - different to today's systems where memory is shared between multiple cores.
+A Transputer was different from typical microprocessors in that it had a small amount of in-built memory.\footnote{The T800 had 4KB; Parachute on desktop has by default 4MB but this can be changed via command line flags; Parachute on the Pi Pico has around 200KB - and is currently only making use of a single core of the RP2040: this will change in a later release.} It also provided an external memory interface for connecting more RAM. Each Transputer in a system could only access  its own memory - different to today's systems where memory is shared between multiple cores.
 
 % scheduler
 
@@ -337,7 +351,7 @@ The Transputer also contained a microcoded scheduler with two levels of priority
 
 % links
 
-Multiple Transputers could be connected together by use of several \textit{links} \index{links}, numbered from zero to three - these were two-wire bidirectional serial connections that could be attached to other Transputers to form a network for fast inter-processor communications. Programs and data can be sent over this network to distribute the processing. The T800 could achieve 1.47 Mbytes/second at 20Mbps.\footnote{In the Parachute emulator, hosted on Raspberry Pi Pico, link speed is currently very slow - it's more of a proof of concept, as it does not currently use the Pico's PIO subsystem. A later release will fix this.} 
+Multiple Transputers could be connected together by use of several \textit{links} \index{links}, numbered from zero to three - each link was a two-wire bidirectional serial connection that could be attached to another Transputer to form a network for fast inter-processor communications. Programs and data could be sent over this network to distribute the processing. The T800 could achieve 1.47 Mbytes/second at 20Mbps.\footnote{In the Parachute emulator, hosted on Raspberry Pi Pico, link speed is currently very slow - it's more of a proof of concept, as it does not currently use the Pico's PIO subsystem. A later release will improve this, raising the data rate significantly.} 
 
 Typically, several Transputers would be used as parallel controllers in an embedded system, connected together by these links. One link would be used to connect the network of Transputers to a host computer, using a \index{link adapter} \textit{link adapter} chip.  There is no intention to be electrically compatible with real Transputers, either via links, or any other interfacing. The Parachute emulator is a \textit{new Transputer-like module} - it will eventually have fast links that interoperate with other Picos running the emulator - but there's no plan to develop timing-compatible links for attachment to a real T800, say.\footnote{Never say never - it could be done, with appropriate timing and voltage level shifting - it's just not a goal of mine yet.} The signalling protocol used by the Pi Pico GPIO links is the same as that used on real Transputers.
 
@@ -366,11 +380,15 @@ Machine code on the Transputer is RISC-like, with common instructions taking a s
 % booting
 
 A real Transputer can be switched to boot from either a ROM or by receiving its boot program down one of its links. The Parachute emulator supports this, and also allows a program image to be loaded directly into its memory and executed, as though it had booted via a link. This is much faster than booting from a link, and is used for several development tools.
+
+\vspace{5mm}
+
+With an appreciation of some of the differences between the Transputer and traditional microprocessors, let's now look at how software running on the emulator can interact with a host system.
  
 \section{IServer client/server system}
 
+% each chapter opens with a brief paragraph stating its scope and purpose, and closes with a summary and forward pointer.
 
-\section{Project Website}
 
 
 
