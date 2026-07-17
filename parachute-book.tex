@@ -333,6 +333,7 @@ This section will introduce the Transputer and its features as presented via the
 \marginnote{This is only the very briefest orientation to what makes a Transputer \textit{different} from other microprocessors. For a much more in-depth overview, I highly recommend the following book which is available from \texttt{https://transputer.net/iset/
 isbn-013929134-2/tthb.pdf}: \cite{tth}}
 
+\subsection{Family members}
 There are several members in the Transputer family of microprocessors, but for simplicity this guide will describe only two of them, as they are implemented by the emulator:
 \begin{itemize}
 	\item The T425 - a 32-bit, integer-only processor with 4KB internal memory, support for debugging, and 4 links.
@@ -342,15 +343,17 @@ There are several members in the Transputer family of microprocessors, but for s
 The Parachute emulator is somewhere in-between these two, closer to the T425. Floating support is not yet added, apart from some FP  instructions present in the T425. There was a 16-bit family of Transputers, with fewer links and disk controller hardware, and there was to be a successor to the T8xx, the T9000 - this never went into production.
 
 % memory
+\subsection{Memory and address space}
+A Transputer was different from typical microprocessors in that it had a small amount of in-built memory.\footnote{The T800 had 4KB; Parachute on desktop has by default 4MB but this can be changed via command line flags; Parachute on the Pi Pico has around 200KB - and is currently only making use of a single core of the RP2040: this will change in a later release.} It also provided an external memory interface for connecting more RAM. Each Transputer in a system could only access its own memory - different to today's systems where memory is shared between multiple cores. A ROM could also be connected, which would typically be placed at the end of the memory space. The Transputer could be configured to boot from this ROM, or via a Link, of which, more later. 
 
-A Transputer was different from typical microprocessors in that it had a small amount of in-built memory.\footnote{The T800 had 4KB; Parachute on desktop has by default 4MB but this can be changed via command line flags; Parachute on the Pi Pico has around 200KB - and is currently only making use of a single core of the RP2040: this will change in a later release.} It also provided an external memory interface for connecting more RAM. Each Transputer in a system could only access  its own memory - different to today's systems where memory is shared between multiple cores.
+A quirk of the Transputer is that the address space used \textit{signed addresses}, which is unusual. Internal RAM started at the most negative address (0x80000000 to 0x800007FF). External memory started at 0x80000800. Internal RAM was placed at what would be considered negative addresses (0x80000000 and up).
 
 % scheduler
-
+\subsection{Scheduler}
 The Transputer also contained a microcoded scheduler with two levels of priority. This permitted multitasking without the need for a full operating system.
 
 % links
-
+\subsection{Links}
 Multiple Transputers could be connected together by use of several \textit{links} \index{links}, numbered from zero to three - each link was a two-wire bidirectional serial connection that could be attached to another Transputer to form a network for fast inter-processor communications. Programs and data could be sent over this network to distribute the processing. The T800 could achieve 1.47 Mbytes/second at 20Mbps.\footnote{In the Parachute emulator, hosted on Raspberry Pi Pico, link speed is currently very slow - it's more of a proof of concept, as it does not currently use the Pico's PIO subsystem. A later release will improve this, raising the data rate significantly.} 
 
 Typically, several Transputers would be used as parallel controllers in an embedded system, connected together by these links. One link would be used to connect the network of Transputers to a host computer, using a \index{link adapter} \textit{link adapter} chip.  There is no intention to be electrically compatible with real Transputers, either via links, or any other interfacing. The Parachute emulator is a \textit{new Transputer-like module} - it will eventually have fast links that interoperate with other Picos running the emulator - but there's no plan to develop timing-compatible links for attachment to a real T800, say.\footnote{Never say never - it could be done, with appropriate timing and voltage level shifting - it's just not a goal of mine yet.} The signalling protocol used by the Pi Pico GPIO links is the same as that used on real Transputers.
@@ -358,28 +361,29 @@ Typically, several Transputers would be used as parallel controllers in an embed
 The Parachute emulator provides several different link implementations - not just bidirectional serial over GPIO pins. To interface the Pico-based emulator to a host, link zero is exposed as a USB CDC interface, so you can connect the Pico via USB cable, and run host software that communicates via a serial port. In addition to the emulator for Pico, there is also a separate \textit{link adapter} which has one link over USB CDC serial, and one link over the bidirectional serial GPIO pins.\footnote{Traditional Transputers could be interfaced using a C012 link adapter chip. The USB adapter is the modern equivalent.} Parachute modernises the link subsystem, to make it trivial to connect to a host. In the desktop installation, the link between the emulator and IServer (see next section) is made using a FIFO or Named Pipe. This could be enhanced to be a TCP socket, extending the reach of the system to the Internet.
 
 % accuracy
-
+\subsection{Timing}
+% This seems out of place - it's discussing the emulator, not the actual hardware.
 The emulator isn't \textit{timing accurate} - there's an \textit{emulated clock} in the emulator, and an instruction takes as many emulated clock cycles as the instruction reference says it should - but this does not relate to real time, as an actual Transputer would.
 
 Emulation is therefore, \textit{instruction-level accurate}. 
 
 % csp
-
+\subsection{Communicating Sequential Processes}
 The programming model is that of multiple processes, communicating with each other over \textit{channels} \index{channel}. A channel is simply a word of memory, where communication between processes is synchronised. The links are accessed via specific locations in the memory map - to a running program there is no distinction between a channel in memory and one that sends/receives data over a link: the Transputer copies messages between memory channels, or directs the DMA engines in the link subsystems to handle communications externally based on the channel address. The instructions for hardware or memory channels are the same. There is obviously a performance penalty if communication is external - but link communications take place independently in parallel to the CPU executing. Processes involved in communication are descheduled and rescheduled during communication.
 
 This model is based on the \index{CSP} \textit{CSP} (Communicating Sequential Processes) design formalism\footnote{Developed by C.A.R. Hoare.}. When designing computer systems, we often try to force a problem that is inherently concurrent and asynchronous into a sequential substrate. CSP - and the Transputer is a hardware implementation of it - gives you a framework for expressing your problem in its 'natural' state, without decomposing it into a sequential form.
 
 % languages
-
+\subsection{Languages}
 The Transputer was originally programmed in \texttt{occam} \index{occam} - a language designed to directly support concurrent and multi-processor programming.\footnote{Parachute does not yet include \texttt{occam}, but I intend to add it. For now, we have assembler, Small-C and eForth.}
 
 % risc-y
-
+\subsection{Instruction set}
 Machine code on the Transputer is RISC-like, with common instructions taking a single nybble. Less common instructions take more storage to encode via an escaping mechanism. Each instruction is therefore variable length. Our assemblers take care of this, and the generation of the most compact code.
 
 % booting
-
-A real Transputer can be switched to boot from either a ROM or by receiving its boot program down one of its links. The Parachute emulator supports this, and also allows a program image to be loaded directly into its memory and executed, as though it had booted via a link. This is much faster than booting from a link, and is used for several development tools.
+\subsection{Booting}
+A real Transputer can be switched to boot from either a ROM or by receiving its boot program down one of its links. A program sent over the links is written at the start of memory range, and then executed. A program in a ROM image is placed at the end of the memory area, and execution starts at the end of memory - with the starting address set to the top two bytes of memory, which will contain a backwards jump to the main code. The desktop Parachute emulator supports both of these options. The embedded emulator will eventually enable a build that includes a ROM image - it's link-only at the moment.
 
 \vspace{5mm}
 
